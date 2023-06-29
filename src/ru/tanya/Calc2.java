@@ -25,7 +25,7 @@ public class Calc2 {
     private JButton button17;
     private JButton button18;
     private JButton button19;
-    private JButton button20;
+    private JButton restartButton;
     private JButton a2Button;
     private JButton a3Button;
     private JButton button23;
@@ -70,27 +70,38 @@ public class Calc2 {
             @Override
             public void actionPerformed(ActionEvent e) {
 
-                int a1= 0;
-                int a2= 0;
+
                 var o = (JButton) e.getSource();
                 String bAct = button2.getText();
                 var label = o.getText();
-                String text = (Label1.getText()+label);
+                String text1 = (Label1.getText()+label);
+                String text0 = text1.substring(1);
+                char qq0 = text1.charAt(0);
+                String text = "0";
 
 
-                if (bAct=="?") {
-
-                    a1 = Integer.parseInt(Label1.getText() + label);
-
-                    Label1.setText(text);
-                    a0Button1.setText(text);
-
-                } else if (bAct=="+") {
-                    a2 = Integer.parseInt(Label1.getText() + label);
-                    Label1.setText(text);
-                    a0Button2.setText(text);
-
+                if (qq0=='0') {
+                    text = text0;
                 }
+                else {
+                    text = text1;
+                }
+
+
+                    if (bAct == "?") {
+
+
+                        Label1.setText(text);
+                        a0Button1.setText(text);
+
+                    } else {
+
+                        Label1.setText(text);
+                        a0Button2.setText(text);
+
+                    }
+
+
 
 
 
@@ -139,9 +150,7 @@ public class Calc2 {
                 else if (Proverka == "/") {
                     Label1.setText(Del);
                 }
-                else if (Proverka == "?") {
-                    Label1.setText("Выберите действие");
-                }
+
             }
         });
 
@@ -151,14 +160,29 @@ public class Calc2 {
                 int length = Label1.getText().length();
                 int number = length - 1;
 
-                if (length>0){
+                if ((length>0)&&(button2.getText()=="?")){
                     StringBuilder back = new StringBuilder(Label1.getText());
                     back.deleteCharAt(number);
                     Label1.setText(back.toString());
                     a0Button1.setText(back.toString());
                 }
+                else if ((length>0)&&!(button2.getText()=="?")){
+                    StringBuilder back = new StringBuilder(Label1.getText());
+                    back.deleteCharAt(number);
+                    Label1.setText(back.toString());
+                    a0Button2.setText(back.toString());
+                }
 
 
+            }
+        });
+        restartButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Label1.setText("0");
+                a0Button1.setText("0");
+                a0Button2.setText("0");
+                button2.setText("?");
             }
         });
     }
